@@ -10,34 +10,36 @@ interface MoviesInterface {
     poster_path: string,
     overview: string,
     index: number,
+    currentCard: number,
+    onCloseMovie: () => void,
 }
 
-const Card = ({id, poster_path, title, overview, index} : MoviesInterface) => {
+const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, index} : MoviesInterface) => {
 
     const imgPath = 'https://image.tmdb.org/t/p/w500/' + poster_path;
 
-  return (
-      <CardMain index={index}>
-        <CardBackground imgPath={imgPath} index={index} />
-        <CardWrapper index={index} >
+    return (
+        <CardMain index={index} currentCard={currentCard}>
+            <CardBackground imgPath={imgPath} index={index} />
+            <CardWrapper index={index}>
 
-            <CardImage src={imgPath} alt={title} />
+                <CardImage src={imgPath} alt={title} />
 
-            <CardContent>
-                <p>{overview}</p>
-            <CardButtonsWrapper>
-                <CustomButton text='TAK' onClick={() => {}} />
-                <CustomButton text='NIE' onClick={() => {}}/>
-            </CardButtonsWrapper>
-            </CardContent>
-        </CardWrapper>
-    </CardMain>
-  )
+                <CardContent>
+                    <p>{overview}</p>
+                <CardButtonsWrapper>
+                    <CustomButton text='TAK' onClick={onCloseMovie} />
+                    <CustomButton text='NIE' onClick={onCloseMovie} />
+                </CardButtonsWrapper>
+                </CardContent>
+            </CardWrapper>
+        </CardMain>
+    )
 }
 
 export default Card
 
-const CardMain = styled.div<{index : number}>`
+const CardMain = styled.div<{index : number, currentCard: number}>`
     position: absolute;
     top: 0;
     left: 50%;
@@ -97,4 +99,6 @@ const CardImage = styled.img`
 const CardButtonsWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
 `;
