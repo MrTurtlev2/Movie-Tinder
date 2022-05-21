@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const initialState = {
 	movies: [],
+    dataStatus: 'pending'
 };
 // const API = 'https://tinder.free.beeceptor.com';
 // const API = 'https://jsonplaceholder.typicode.com'
@@ -24,18 +25,14 @@ export const moviesSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(getMoviesAsync.pending, (state, action) => {
-			// state.recipes = action.payload;
-				console.log('pending');
+			.addCase(getMoviesAsync.pending, (state) => {
+                state.dataStatus = 'pending';
 			})
 			.addCase(getMoviesAsync.fulfilled, (state, action) => {
 				state.movies = action.payload;
-				console.log(action);
-				// console.log('fulfield');
 			})
-			.addCase(getMoviesAsync.rejected, (state, action) => {
-				// state.recipes = action.payload;
-				console.log('rejected');
+			.addCase(getMoviesAsync.rejected, (state) => {
+				state.dataStatus = 'rejected';
 			});
 	},
 });

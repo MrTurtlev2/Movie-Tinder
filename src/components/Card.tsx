@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import CustomButton from './CustomButton';
+import Rating from './Rating';
 
 interface MoviesInterface {
     title: string,
@@ -11,10 +12,11 @@ interface MoviesInterface {
     overview: string,
     index: number,
     currentCard: number,
+    vote_average: number,
     onCloseMovie: () => void,
 }
 
-const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, index} : MoviesInterface) => {
+const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, index, vote_average} : MoviesInterface) => {
 
     const imgPath = 'https://image.tmdb.org/t/p/w500/' + poster_path;
 
@@ -26,6 +28,7 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, inde
                 <CardImage src={imgPath} alt={title} />
 
                 <CardContent>
+                    <Rating rating={vote_average} />
                     <p>{overview}</p>
                 <CardButtonsWrapper>
                     <CustomButton text='TAK' onClick={onCloseMovie} />
@@ -58,8 +61,8 @@ const CardBackground = styled.div<{imgPath : string, index : number}>`
     display: flex;
     justify-content: center;
     align-items: center;
-    filter: blur(3px);
-    -webkit-filter: blur(3px);
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
     position: absolute;
     top: 0;
     left: 50%;
@@ -82,7 +85,9 @@ const CardContent= styled.div`
     color: ${({ theme }) => theme.colors.white};
     font-size: ${({ theme }) => theme.size.small};
     text-align: left;
-    padding: 10px;
+    margin-top: -5px;
+    padding: 20px 15px;
+    position: relative;
     p {
         display: -webkit-box;
         max-width: 200px;
