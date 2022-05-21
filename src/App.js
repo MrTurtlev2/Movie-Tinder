@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectMovies, getMoviesAsync } from './features/movies/movieSlice';
 import Card from './components/Card';
@@ -20,7 +19,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        {moviesArray.map((item) => <Card {...item} key={item.id} />)}
+        {moviesArray.map((item, index) => <Card {...item} key={item.id} index={index} />)}
       </Layout>
     
     </ThemeProvider>
