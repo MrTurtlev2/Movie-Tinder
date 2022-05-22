@@ -20,11 +20,13 @@ const App = () => {
 
 
   const handleChoseMovie = () => {
-    if(currentCard === moviesArray.length -1) {
-      setCurrentCard(0)
-    } else {
-      setCurrentCard(currentCard + 1)
-    }
+    setTimeout(function(){
+      if(currentCard === moviesArray.length -1) {
+        setCurrentCard(0)
+      } else {
+        setCurrentCard(currentCard + 1)
+      }
+    }, 1000);
   }
 
   return (

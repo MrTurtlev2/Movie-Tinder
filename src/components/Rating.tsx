@@ -30,7 +30,7 @@ const RatingWrapper = styled.div<{height : number}>`
   position: absolute;
   top: ${p => p.height / 2 * -1}px;
   right: 20px;
-  border-radius: 3px;
+  border-radius: ${({ theme }) => theme.radius.small};
   padding: 2px 7px;
   background-color: ${({ theme }) => theme.colors.blue};
   p {

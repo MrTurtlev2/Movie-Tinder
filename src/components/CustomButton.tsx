@@ -11,5 +11,6 @@ export default CustomButton
 
 const ButtonWrapper = styled.div`
     color: ${({ theme }) => theme.colors.blue};
-    font-size: ${({ theme }) => theme.size.medium};
+    font-size: ${({ theme }) => theme.size.large};
+    cursor: pointer;
 `;

@@ -16,9 +16,10 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, inde
 
                 <CardContent>
                     <Rating rating={vote_average} />
-                    <p>{overview}</p>
+                    <RatingSummary>{overview}</RatingSummary>
                 <CardButtonsWrapper>
                     <CustomButton text='TAK' onClick={onCloseMovie} />
+                    <Separator />
                     <CustomButton text='NIE' onClick={onCloseMovie} />
                 </CardButtonsWrapper>
                 </CardContent>
@@ -48,13 +49,18 @@ const CardBackground = styled.div<{imgPath : string, index : number}>`
     display: flex;
     justify-content: center;
     align-items: center;
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
     position: absolute;
     top: 0;
     left: 50%;
     z-index: ${p => (p.index)};
     transform: translateX(-50%);
+    ::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(5px);
+    }
 `;
 
 const CardWrapper = styled.div<{index : number}>`
@@ -73,14 +79,18 @@ const CardContent= styled.div`
     font-size: ${({ theme }) => theme.size.vsmall};
     text-align: left;
     margin-top: -5px;
-    padding: 20px 15px;
     position: relative;
-    p {
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
+    border-bottom-left-radius: ${({ theme }) => theme.radius.small};
+    border-bottom-right-radius: ${({ theme }) => theme.radius.small};
+`;
+
+const RatingSummary = styled.div`
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: 15px 15px 0 15px;
+    margin-bottom: 15px;
 `;
 
 const CardImage = styled.img`
@@ -90,6 +100,14 @@ const CardImage = styled.img`
 const CardButtonsWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    padding: 0 10px;
+    justify-content: space-around;
+    padding: 10px;
+    border: 3px solid ${({ theme }) => theme.colors.blue};
+    border-radius: ${({ theme }) => theme.radius.small};
+`;
+
+const Separator = styled.div`
+    width: 2px;
+    background-color: ${({ theme }) => theme.colors.blue};
+    border-radius: ${({ theme }) => theme.radius.small};
 `;

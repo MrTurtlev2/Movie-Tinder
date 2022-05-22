@@ -11,6 +11,9 @@ export const theme = {
 		vsmall: '10px',
 		small: '12px',
 		medium: '17px',
-		big: '24px',
+		large: '24px',
 	},
+	radius: {
+		small: '3px'
+	}
 };
