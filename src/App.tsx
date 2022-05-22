@@ -38,7 +38,7 @@ const App = () => {
               <Card
               key={item.id}
               {...item}
-              index={index + 1}
+              // index={index + 1}
               currentCard={currentCard}
               onCloseMovie={handleChoseMovie}/>
             )

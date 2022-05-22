@@ -9,5 +9,6 @@ export interface MoviesInterface {
     index: number,
     currentCard: number,
     vote_average: number,
+    release_date: string,
     onCloseMovie: () => void,
 }

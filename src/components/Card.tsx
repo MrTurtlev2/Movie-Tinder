@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { MoviesInterface } from '../types/cardInterface';
 import CustomButton from './CustomButton';
@@ -13,12 +13,16 @@ enum CardStatus {
     Idle = 'Idle'
 }
 
-const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, index, vote_average} : MoviesInterface) => {
+const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote_average, release_date} : MoviesInterface) => {
 
     const imgPath = 'https://image.tmdb.org/t/p/w500/' + poster_path;
 
     const [desicion, setDesicion] = useState(CardStatus.Idle);
+    const [height, setHeight] = useState(0)
+
     const dispatch = useAppDispatch();
+    const ref = useRef<any>();
+
 
     const handleAnimation = (direction : any) => {
         setDesicion(direction)
@@ -26,17 +30,25 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, inde
         onCloseMovie();
     }
 
+  
+    useEffect(()=> {
+      setHeight(ref?.current?.clientHeight);
+    },[])
 
     return (
-        <CardMain index={index} currentCard={currentCard}>
-            <CardBackground imgPath={imgPath} index={index} />
-            <CardWrapper index={index} className={desicion}>
+        <CardMain currentCard={currentCard}>
+            <CardBackground imgPath={imgPath} />
+            <CardWrapper className={desicion}>
 
                 <CardImage src={imgPath} alt={title} />
 
                 <CardContent>
+                    <CardTitle height={height} ref={ref}>{title}</CardTitle>
                     <Rating rating={vote_average} />
-                    <RatingSummary>{overview}</RatingSummary>
+                    <RatingSummary>
+                        <p>{release_date}</p>
+                        <p>{overview}</p>
+                    </RatingSummary>
                 <CardButtonsWrapper>
                     <CustomButton text='NO' onClick={()=> handleAnimation(CardStatus.Rejected)} />
                     <Separator />
@@ -57,16 +69,15 @@ const cardAcceptAnimation = keyframes`${bounceOutRight}`;
 const cardRejectAnimation = keyframes`${bounceOutLeft}`;
 
 
-const CardMain = styled.div<{index : number, currentCard: number}>`
-    position: absolute;
-    top: 0;
-    left: 50%;
-    z-index: ${p => (p.index)};
-    transform: translateX(-50%);
+const CardMain = styled.div<{currentCard: number}>`
     height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
-const CardBackground = styled.div<{imgPath : string, index : number}>`
+const CardBackground = styled.div<{imgPath : string}>`
     height: 100vh;
     width: 100vw;
     background-image: url(${p => p.imgPath});
@@ -77,26 +88,17 @@ const CardBackground = styled.div<{imgPath : string, index : number}>`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 0;
-    left: 50%;
-    z-index: ${p => (p.index)};
-    transform: translateX(-50%);
     ::before {
         content: "";
         position: absolute;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         backdrop-filter: blur(5px);
     }
 `;
 
-const CardWrapper = styled.div<{index : number}>`
+const CardWrapper = styled.div`
     width: calc(100vw - 130px);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: ${p => (p.index)};
-    position: fixed;
     max-width: 500px;
     &.Idle{
         animation: ${cardAppearAnimation} 2s forwards;
@@ -120,12 +122,26 @@ const CardContent= styled.div`
     border-bottom-right-radius: ${({ theme }) => theme.radius.small};
 `;
 
+const CardTitle = styled.p<{height : number}>`
+    font-size: ${({ theme }) => theme.size.large};
+    font-weight: ${({ theme }) => theme.weight.bold};
+    color: ${({ theme }) => theme.colors.blue};
+    position: absolute;
+    top: ${p => p.height * -1}px;
+    left: 10px;
+    max-width: 220px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+`;
+
 const RatingSummary = styled.div`
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    padding: 15px 15px 0 15px;
+    padding: 20px 15px 0 15px;
     margin-bottom: 15px;
 `;
 
