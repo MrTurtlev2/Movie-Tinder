@@ -6,6 +6,7 @@ import Rating from './Rating';
 import { fadeIn, bounceOutLeft, bounceOutRight } from 'react-animations'
 import { useAppDispatch } from '../app/hooks';
 import { choseMoviesAsync } from '../services/movieService';
+import { useSwipeable } from 'react-swipeable';
 
 enum CardStatus {
     Accepted = 'Accepted',
@@ -35,20 +36,31 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
       setHeight(ref?.current?.clientHeight);
     },[])
 
+    const handlers = useSwipeable({
+        onSwipedLeft: () => {
+            setDesicion(CardStatus.Rejected)
+            handleAnimation(CardStatus.Rejected)
+        },
+        onSwipedRight: () => {
+            setDesicion(CardStatus.Accepted)
+            handleAnimation(CardStatus.Accepted)
+        },
+    });
+
     return (
         <CardMain currentCard={currentCard}>
             <CardBackground imgPath={imgPath} />
-            <CardWrapper className={desicion}>
+            <CardWrapper className={desicion} {...handlers}>
 
                 <CardImage src={imgPath} alt={title} />
 
                 <CardContent>
                     <CardTitle height={height} ref={ref}>{title}</CardTitle>
                     <Rating rating={vote_average} />
-                    <RatingSummary>
-                        <p>{release_date}</p>
+                    <CardSummary>
+                        <p>{release_date.slice(0, 4)}</p>
                         <p>{overview}</p>
-                    </RatingSummary>
+                    </CardSummary>
                 <CardButtonsWrapper>
                     <CustomButton text='NO' onClick={()=> handleAnimation(CardStatus.Rejected)} />
                     <Separator />
@@ -127,22 +139,30 @@ const CardTitle = styled.p<{height : number}>`
     font-weight: ${({ theme }) => theme.weight.bold};
     color: ${({ theme }) => theme.colors.blue};
     position: absolute;
-    top: ${p => p.height * -1}px;
+    top: ${p => (p.height - 4) * -1 }px;
     left: 10px;
-    max-width: 220px;
-    overflow: hidden;
-    white-space: nowrap;
+    max-width: 60%;
     text-transform: uppercase;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 `;
 
-const RatingSummary = styled.div`
+const CardSummary = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
     padding: 20px 15px 0 15px;
     margin-bottom: 15px;
+    font-size: ${({ theme }) => theme.size.small};
+    p {
+        &:first-of-type {
+            margin-bottom: 5px !important;
+        }
+    }
 `;
 
 const CardImage = styled.img`
