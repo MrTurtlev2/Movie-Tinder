@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { selectMovies, getMoviesAsync } from './features/movies/movieSlice';
+import { selectMovies } from './features/movies/movieSlice';
 import Card from './components/Card';
 import {theme} from './constants/theme'
 import { ThemeProvider } from 'styled-components';
 import { Layout } from './components/common/Layout';
 import { useAppDispatch, useAppSelector } from './app/hooks';
+import { getMoviesAsync } from './services/movieService';
 
 const App = () => {
 
@@ -43,7 +44,6 @@ const App = () => {
             
         })}
       </Layout>
-    
     </ThemeProvider>
   );
 }

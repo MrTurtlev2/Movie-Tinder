@@ -1,20 +1,7 @@
 import styled from 'styled-components';
+import { MoviesInterface } from '../types/cardInterface';
 import CustomButton from './CustomButton';
 import Rating from './Rating';
-
-interface MoviesInterface {
-    title: string,
-    imageURL: string,
-    summary: string,
-    rating: number,
-    id: string,
-    poster_path: string,
-    overview: string,
-    index: number,
-    currentCard: number,
-    vote_average: number,
-    onCloseMovie: () => void,
-}
 
 const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, index, vote_average} : MoviesInterface) => {
 

@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-
-interface LayoutInterface {
-    children : React.ReactNode
-}
+import { LayoutInterface } from '../../types/layoutInterface';
 
 export const Layout = ({children} : LayoutInterface) => {
   return (

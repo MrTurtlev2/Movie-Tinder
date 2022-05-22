@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-
-interface ButtonInterface {
-    onClick: () => void,
-    text: String
-}
+import { ButtonInterface } from '../types/customButtonInterface';
 
 const CustomButton = ({onClick, text} : ButtonInterface) => {
   return (
@@ -11,12 +7,9 @@ const CustomButton = ({onClick, text} : ButtonInterface) => {
   )
 }
 
-
-
 export default CustomButton
 
 const ButtonWrapper = styled.div`
     color: ${({ theme }) => theme.colors.blue};
-    /* font-weight: ${({ theme }) => theme.weight.bold}; */
     font-size: ${({ theme }) => theme.size.medium};
 `;

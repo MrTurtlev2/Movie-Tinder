@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import StarIcon from "../assets/images/StarIcon";
-
-interface RatingInterface {
-    rating: number
-}
+import { RatingInterface } from "../types/ratingInterface";
 
 const Rating = ({rating} : RatingInterface) => {
   return (
