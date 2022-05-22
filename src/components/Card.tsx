@@ -111,6 +111,7 @@ const CardBackground = styled.div<{imgPath : string}>`
 
 const CardWrapper = styled.div`
     width: calc(100vw - 130px);
+    max-height: calc(100vh - 50px);
     max-width: 500px;
     &.Idle{
         animation: ${cardAppearAnimation} 2s forwards;

@@ -1,26 +1,35 @@
 import { useEffect, useState } from 'react';
-import { selectMovies } from './features/movies/movieSlice';
+import { selectPopularMovies } from './features/movies/movieSlice';
 import Card from './components/Card';
 import {theme} from './constants/theme'
 import { ThemeProvider } from 'styled-components';
 import { Layout } from './components/common/Layout';
 import { useAppDispatch, useAppSelector } from './app/hooks';
-import { getMoviesAsync } from './services/movieService';
+import { getPopularMoviesAsync, getUpcomingMoviesAsync } from './services/movieService';
+import { Menu } from './components/Menu';
+
+enum MenuOptionEnum {
+  Popular = 'popular',
+  Upcoming = 'upcoming'
+}
 
 const App = () => {
 
-  const [currentCard, setCurrentCard] = useState(0)
+  const [currentCard, setCurrentCard] = useState(0);
+  const [selectedMenuOption, setSelectedMenuOption] = useState(MenuOptionEnum.Popular);
+  // const [moviesArray, setoviesArray] = useState(0);
 
-  const moviesArray = useAppSelector(selectMovies);
+  const moviesArray = useAppSelector(selectPopularMovies);
   const dispatch = useAppDispatch();
 
 	useEffect(()=> {
-		dispatch(getMoviesAsync());
+		dispatch(getPopularMoviesAsync());
+    dispatch(getUpcomingMoviesAsync());
 	}, [dispatch]);
 
 
   const handleChoseMovie = () => {
-    setTimeout(function(){
+    setTimeout(function() {
       if(currentCard === moviesArray.length -1) {
         setCurrentCard(0)
       } else {
@@ -29,16 +38,22 @@ const App = () => {
     }, 1000);
   }
 
+  const selectMovieType = (val : any) => {
+    setSelectedMenuOption(val);
+  }
+
+  console.log(selectedMenuOption)
+
   return (
     <ThemeProvider theme={theme}>
       <Layout>
+        <Menu selectedOption={(val : any)=> selectMovieType(val)} />
         {moviesArray.map((item : any, index : number) => {
           if(currentCard === index) {
             return (
               <Card
               key={item.id}
               {...item}
-              // index={index + 1}
               currentCard={currentCard}
               onCloseMovie={handleChoseMovie}/>
             )

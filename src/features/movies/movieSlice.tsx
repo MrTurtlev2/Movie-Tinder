@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { choseMoviesAsync, getMoviesAsync } from '../../services/movieService';
+import { choseMoviesAsync, getPopularMoviesAsync, getUpcomingMoviesAsync } from '../../services/movieService';
 
 const initialState = {
 	movies: [],
-    fetchMovieStatus: 'pending',
+    fetchPopularMovieStatus: 'pending',
+	fetchUpcomingMovieStatus: 'pending',
 	postMovieStatus: 'pending'
 };
 
@@ -13,15 +14,27 @@ export const moviesSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(getMoviesAsync.pending, (state) => {
-                state.fetchMovieStatus = 'pending';
+			.addCase(getPopularMoviesAsync.pending, (state) => {
+                state.fetchPopularMovieStatus = 'pending';
 			})
-			.addCase(getMoviesAsync.fulfilled, (state, action) => {
+			.addCase(getPopularMoviesAsync.fulfilled, (state, action) => {
 				state.movies = action.payload;
 			})
-			.addCase(getMoviesAsync.rejected, (state) => {
-				state.fetchMovieStatus = 'rejected';
+			.addCase(getPopularMoviesAsync.rejected, (state) => {
+				state.fetchPopularMovieStatus = 'rejected';
 			})
+
+
+			.addCase(getUpcomingMoviesAsync.pending, (state) => {
+                state.fetchUpcomingMovieStatus = 'pending';
+			})
+			.addCase(getUpcomingMoviesAsync.fulfilled, (state, action) => {
+				state.movies = action.payload;
+			})
+			.addCase(getUpcomingMoviesAsync.rejected, (state) => {
+				state.fetchUpcomingMovieStatus = 'rejected';
+			})
+
 
 			.addCase(choseMoviesAsync.pending, (state) => {
 				state.postMovieStatus = 'pending';
@@ -35,6 +48,6 @@ export const moviesSlice = createSlice({
 	},
 });
 
-export const selectMovies = (state: { movies: { movies: any; }; }) => state.movies.movies;
+export const selectPopularMovies = (state: { movies: { movies: any; }; }) => state.movies.movies;
 
 export default moviesSlice.reducer;

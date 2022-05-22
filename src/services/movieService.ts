@@ -6,9 +6,17 @@ import axios from "axios";
 const API = 'https://api.themoviedb.org/3';
 const API_KEY = 'api_key=ff50baa59a96c64b8d7de41b804d51f0';
 
-export const getMoviesAsync = createAsyncThunk(
-	'movies/getMoviesAsync', async () => {
+export const getPopularMoviesAsync = createAsyncThunk(
+	'movies/getPopularMoviesAsync', async () => {
 		const data = await axios.get(`${API}/movie/popular?${API_KEY}`);
+		console.log(data.data.results);
+		return data.data.results;
+	}
+);
+
+export const getUpcomingMoviesAsync = createAsyncThunk(
+	'movies/getUpcomingMoviesAsync', async () => {
+		const data = await axios.get(`${API}/movie/upcoming?${API_KEY}`);
 		console.log(data.data.results);
 		return data.data.results;
 	}
