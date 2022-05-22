@@ -8,7 +8,8 @@ export const theme = {
 		bold: 800,
 	},
 	size: {
-		small: '10px',
+		vsmall: '10px',
+		small: '12px',
 		medium: '17px',
 		big: '24px',
 	},

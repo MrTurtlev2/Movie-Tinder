@@ -70,14 +70,13 @@ const CardWrapper = styled.div<{index : number}>`
 const CardContent= styled.div`
     background-color: ${({ theme }) => theme.colors.black};
     color: ${({ theme }) => theme.colors.white};
-    font-size: ${({ theme }) => theme.size.small};
+    font-size: ${({ theme }) => theme.size.vsmall};
     text-align: left;
     margin-top: -5px;
     padding: 20px 15px;
     position: relative;
     p {
         display: -webkit-box;
-        max-width: 200px;
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
