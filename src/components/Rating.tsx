@@ -35,6 +35,7 @@ const RatingWrapper = styled.div<{height : number}>`
   background-color: ${({ theme }) => theme.colors.blue};
   p {
     margin-left: 5px;
+    font-weight: 700;
     color: ${({ theme }) => theme.colors.black};
     font-size: ${({ theme }) => theme.size.small};
   }
