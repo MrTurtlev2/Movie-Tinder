@@ -1,16 +1,32 @@
-import styled from 'styled-components';
+import { useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { MoviesInterface } from '../types/cardInterface';
 import CustomButton from './CustomButton';
 import Rating from './Rating';
+import { fadeIn, bounceOutLeft, bounceOutRight } from 'react-animations'
+
+enum CardStatus {
+    Accepted = 'Accepted',
+    Rejected = 'Rejected',
+    Idle = 'Idle'
+}
 
 const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, index, vote_average} : MoviesInterface) => {
 
     const imgPath = 'https://image.tmdb.org/t/p/w500/' + poster_path;
 
+    const [animDirection, setAnimDirection] = useState(CardStatus.Idle);
+
+    const handleAnimation = (direction : any) => {
+        setAnimDirection(direction)
+        onCloseMovie();
+    }
+
+
     return (
         <CardMain index={index} currentCard={currentCard}>
             <CardBackground imgPath={imgPath} index={index} />
-            <CardWrapper index={index}>
+            <CardWrapper index={index} className={animDirection}>
 
                 <CardImage src={imgPath} alt={title} />
 
@@ -18,9 +34,9 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, inde
                     <Rating rating={vote_average} />
                     <RatingSummary>{overview}</RatingSummary>
                 <CardButtonsWrapper>
-                    <CustomButton text='TAK' onClick={onCloseMovie} />
+                    <CustomButton text='NO' onClick={()=> handleAnimation(CardStatus.Rejected)} />
                     <Separator />
-                    <CustomButton text='NIE' onClick={onCloseMovie} />
+                    <CustomButton text='YES' onClick={()=> handleAnimation(CardStatus.Accepted)} />
                 </CardButtonsWrapper>
                 </CardContent>
             </CardWrapper>
@@ -29,6 +45,13 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, inde
 }
 
 export default Card
+
+const cardAppearAnimation = keyframes`${fadeIn}`;
+
+const cardAcceptAnimation = keyframes`${bounceOutRight}`;
+
+const cardRejectAnimation = keyframes`${bounceOutLeft}`;
+
 
 const CardMain = styled.div<{index : number, currentCard: number}>`
     position: absolute;
@@ -71,6 +94,15 @@ const CardWrapper = styled.div<{index : number}>`
     z-index: ${p => (p.index)};
     position: fixed;
     max-width: 500px;
+    &.Idle{
+        animation: ${cardAppearAnimation} 2s forwards;
+    }
+    &.Accepted {
+        animation: ${cardAcceptAnimation} 2s forwards;
+    }
+    &.Rejected {
+        animation: ${cardRejectAnimation} 2s forwards;
+    }
 `;
 
 const CardContent= styled.div`
