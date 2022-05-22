@@ -4,6 +4,8 @@ import { MoviesInterface } from '../types/cardInterface';
 import CustomButton from './CustomButton';
 import Rating from './Rating';
 import { fadeIn, bounceOutLeft, bounceOutRight } from 'react-animations'
+import { useAppDispatch } from '../app/hooks';
+import { choseMoviesAsync } from '../services/movieService';
 
 enum CardStatus {
     Accepted = 'Accepted',
@@ -15,10 +17,12 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, inde
 
     const imgPath = 'https://image.tmdb.org/t/p/w500/' + poster_path;
 
-    const [animDirection, setAnimDirection] = useState(CardStatus.Idle);
+    const [desicion, setDesicion] = useState(CardStatus.Idle);
+    const dispatch = useAppDispatch();
 
     const handleAnimation = (direction : any) => {
-        setAnimDirection(direction)
+        setDesicion(direction)
+        dispatch(choseMoviesAsync({id, desicion}));
         onCloseMovie();
     }
 
@@ -26,7 +30,7 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, inde
     return (
         <CardMain index={index} currentCard={currentCard}>
             <CardBackground imgPath={imgPath} index={index} />
-            <CardWrapper index={index} className={animDirection}>
+            <CardWrapper index={index} className={desicion}>
 
                 <CardImage src={imgPath} alt={title} />
 

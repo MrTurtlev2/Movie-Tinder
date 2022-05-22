@@ -13,3 +13,10 @@ export const getMoviesAsync = createAsyncThunk(
 		return data.data.results;
 	}
 );
+
+export const choseMoviesAsync = createAsyncThunk(
+	'movies/choseMoviesAsync', async ({id, decision} : any) => {
+		const data = await axios.post(`${API}/recomendations/${id}/${decision}`, {id, decision});
+		return data.data.results;
+	}
+);

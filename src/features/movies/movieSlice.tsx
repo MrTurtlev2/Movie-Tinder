@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getMoviesAsync } from '../../services/movieService';
+import { choseMoviesAsync, getMoviesAsync } from '../../services/movieService';
 
 const initialState = {
 	movies: [],
-    dataStatus: 'pending'
+    fetchMovieStatus: 'pending',
+	postMovieStatus: 'pending'
 };
-
 
 export const moviesSlice = createSlice({
 	name: 'movies',
@@ -14,14 +14,24 @@ export const moviesSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(getMoviesAsync.pending, (state) => {
-                state.dataStatus = 'pending';
+                state.fetchMovieStatus = 'pending';
 			})
 			.addCase(getMoviesAsync.fulfilled, (state, action) => {
 				state.movies = action.payload;
 			})
 			.addCase(getMoviesAsync.rejected, (state) => {
-				state.dataStatus = 'rejected';
-			});
+				state.fetchMovieStatus = 'rejected';
+			})
+
+			.addCase(choseMoviesAsync.pending, (state) => {
+				state.postMovieStatus = 'pending';
+			})
+			.addCase(choseMoviesAsync.fulfilled, (state) => {
+				state.postMovieStatus = 'fulfilled';
+			})
+			.addCase(choseMoviesAsync.rejected, (state) => {
+				state.postMovieStatus = 'rejected';
+			})
 	},
 });
 
