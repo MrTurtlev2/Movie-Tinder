@@ -49,7 +49,7 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
 
     return (
         <CardMain currentCard={currentCard}>
-            <CardBackground imgPath={imgPath} />
+            <CardBackground className={desicion} imgPath={imgPath} />
             <CardWrapper className={desicion} {...handlers}>
                 <CardImage src={imgPath} alt={title} />
                 <CardContent>
@@ -79,6 +79,11 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
 }
 
 export default Card
+
+const groundAppearAnimation = keyframes`
+    from { opacity: 0}
+    to {opacity: 1}
+`;
 
 const cardAppearAnimation = keyframes`${fadeIn}`;
 
@@ -112,6 +117,9 @@ const CardBackground = styled.div<{imgPath : string}>`
         width: 100vw;
         height: 100vh;
         backdrop-filter: blur(5px);
+    }
+    &.Idle{
+        animation: ${groundAppearAnimation} 2s forwards;
     }
 `;
 
