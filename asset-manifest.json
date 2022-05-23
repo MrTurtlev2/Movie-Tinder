@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Movie-Tinder/static/css/main.48b1357c.css",
+    "main.js": "/Movie-Tinder/static/js/main.82b045eb.js",
+    "static/js/787.e3e8ebb2.chunk.js": "/Movie-Tinder/static/js/787.e3e8ebb2.chunk.js",
+    "index.html": "/Movie-Tinder/index.html",
+    "main.48b1357c.css.map": "/Movie-Tinder/static/css/main.48b1357c.css.map",
+    "main.82b045eb.js.map": "/Movie-Tinder/static/js/main.82b045eb.js.map",
+    "787.e3e8ebb2.chunk.js.map": "/Movie-Tinder/static/js/787.e3e8ebb2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.48b1357c.css",
+    "static/js/main.82b045eb.js"
+  ]
+}
