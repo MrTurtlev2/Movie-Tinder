@@ -51,9 +51,7 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
         <CardMain currentCard={currentCard}>
             <CardBackground imgPath={imgPath} />
             <CardWrapper className={desicion} {...handlers}>
-
                 <CardImage src={imgPath} alt={title} />
-
                 <CardContent>
                     <CardTitle height={height} ref={ref}>{title}</CardTitle>
                     <Rating rating={vote_average} />

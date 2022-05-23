@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import { choseMoviesAsync, getMoviesAsync } from '../../services/movieService';
 
-const initialState = {
+export interface MoviesState {
+	fetchMovieStatus: string,
+	postMovieStatus: string,
+	movies: []
+}
+
+const initialState: MoviesState = {
 	movies: [],
     fetchMovieStatus: 'pending',
 	postMovieStatus: 'pending'
@@ -35,6 +42,6 @@ export const moviesSlice = createSlice({
 	},
 });
 
-export const selectMovies = (state: { movies: { movies: any; }; }) => state.movies.movies;
+export const selectMovies = (state: RootState) => state.movies.movies;
 
 export default moviesSlice.reducer;

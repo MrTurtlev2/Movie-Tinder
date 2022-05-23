@@ -18,7 +18,6 @@ const App = () => {
 		dispatch(getMoviesAsync());
 	}, [dispatch]);
 
-
   const handleChoseMovie = () => {
     setTimeout(function(){
       if(currentCard === moviesArray.length -1) {
@@ -42,7 +41,6 @@ const App = () => {
               onCloseMovie={handleChoseMovie}/>
             )
           } else { return null}
-            
         })}
       </Layout>
     </ThemeProvider>
