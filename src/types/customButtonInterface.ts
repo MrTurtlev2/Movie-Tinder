@@ -1,4 +1,5 @@
 export interface ButtonInterface {
     onClick: () => void,
-    text: string
+    text: string,
+    className: string
 }

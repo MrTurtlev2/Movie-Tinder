@@ -62,9 +62,9 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
                         <p>{overview}</p>
                     </CardSummary>
                 <CardButtonsWrapper>
-                    <CustomButton text='NO' onClick={()=> handleAnimation(CardStatus.Rejected)} />
+                    <CustomButton className={'reject'} text='NO' onClick={()=> handleAnimation(CardStatus.Rejected)} />
                     <Separator />
-                    <CustomButton text='YES' onClick={()=> handleAnimation(CardStatus.Accepted)} />
+                    <CustomButton className={'accept'} text='YES' onClick={()=> handleAnimation(CardStatus.Accepted)} />
                 </CardButtonsWrapper>
                 </CardContent>
             </CardWrapper>

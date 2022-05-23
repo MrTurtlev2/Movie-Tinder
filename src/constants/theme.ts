@@ -3,6 +3,8 @@ export const theme = {
 		white: '#FFF',
 		black: '#000000',
 		blue: '#00A3FF',
+		green: '#00FF00',
+		red: '#FF0000',
 	},
 	weight: {
 		bold: 800,

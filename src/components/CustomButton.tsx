@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { ButtonInterface } from '../types/customButtonInterface';
 
-const CustomButton = ({onClick, text} : ButtonInterface) => {
+const CustomButton = ({onClick, text, className} : ButtonInterface) => {
   return (
-    <ButtonWrapper onClick={onClick}>{text}</ButtonWrapper>
+    <ButtonWrapper className={className} onClick={onClick}>{text}</ButtonWrapper>
   )
 }
 
@@ -13,4 +13,12 @@ const ButtonWrapper = styled.div`
     color: ${({ theme }) => theme.colors.blue};
     font-size: ${({ theme }) => theme.size.large};
     cursor: pointer;
+    :hover {
+      &.reject {
+        color: ${({ theme }) => theme.colors.red};
+      }
+      &.accept {
+        color: ${({ theme }) => theme.colors.green};
+      }
+    }
 `;

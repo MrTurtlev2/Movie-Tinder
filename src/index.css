@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #000;
 }
 
 code {
@@ -18,4 +19,7 @@ code {
   margin: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent !important;
+}
+::-webkit-scrollbar {
+  display: none;
 }
