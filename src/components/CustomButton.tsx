@@ -13,12 +13,10 @@ const ButtonWrapper = styled.div`
     color: ${({ theme }) => theme.colors.blue};
     font-size: ${({ theme }) => theme.size.large};
     cursor: pointer;
-    :hover {
-      &.reject {
-        color: ${({ theme }) => theme.colors.red};
-      }
-      &.accept {
-        color: ${({ theme }) => theme.colors.green};
-      }
+    &.reject {
+      color: ${({ theme }) => theme.colors.red};
+    }
+    &.accept {
+      color: ${({ theme }) => theme.colors.green};
     }
 `;
