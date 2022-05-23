@@ -1,5 +1,6 @@
 {
-  "name": "my-app",
+  "homepage": "https://MrTurtlev2.github.io/Movie-Tinder",
+  "name": "movie-tinder",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
