@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { getMoviesAsync } from '../../services/movieService';
-import { MoviesState, selectMovies } from './movieSlice';
-  
-  describe('fetching data works', () => {
+import {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {getMoviesAsync} from '../../services/movieService';
+import {MoviesState, selectMovies} from './movieSlice';
+
+describe('fetching data works', () => {
     const initialState: MoviesState = {
         fetchMovieStatus: 'pending',
         postMovieStatus: 'pending',
@@ -11,7 +11,7 @@ import { MoviesState, selectMovies } from './movieSlice';
     };
     it('should handle initial state', () => {
         expect(initialState).toEqual({
-            fetchMovieStatus: 'pending', 
+            fetchMovieStatus: 'pending',
             postMovieStatus: 'pending',
             movies: []
         })
@@ -21,7 +21,7 @@ import { MoviesState, selectMovies } from './movieSlice';
         const moviesArray = useAppSelector(selectMovies);
         const dispatch = useAppDispatch();
 
-        useEffect(()=> {
+        useEffect(() => {
             dispatch(getMoviesAsync());
         }, [dispatch]);
         expect(moviesArray.length).toBeGreaterThan(0);

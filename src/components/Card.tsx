@@ -18,7 +18,7 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
 
     const imgPath = 'https://image.tmdb.org/t/p/w500/' + poster_path;
 
-    const [desicion, setDesicion] = useState(CardStatus.Idle);
+    const [decision, setDecision] = useState(CardStatus.Idle);
     const [height, setHeight] = useState(0)
 
     const dispatch = useAppDispatch();
@@ -26,8 +26,8 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
 
 
     const handleAnimation = (direction : any) => {
-        setDesicion(direction)
-        dispatch(choseMoviesAsync({id, desicion}));
+        setDecision(direction)
+        dispatch(choseMoviesAsync({id, decision: decision}));
         onCloseMovie();
     }
 
@@ -38,19 +38,19 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
 
     const handlers = useSwipeable({
         onSwipedLeft: () => {
-            setDesicion(CardStatus.Rejected)
+            setDecision(CardStatus.Rejected)
             handleAnimation(CardStatus.Rejected)
         },
         onSwipedRight: () => {
-            setDesicion(CardStatus.Accepted)
+            setDecision(CardStatus.Accepted)
             handleAnimation(CardStatus.Accepted)
         },
     });
 
     return (
         <CardMain currentCard={currentCard}>
-            <CardBackground className={desicion} imgPath={imgPath} />
-            <CardWrapper className={desicion} {...handlers}>
+            <CardBackground className={decision} imgPath={imgPath} />
+            <CardWrapper className={decision} {...handlers}>
                 <CardImage src={imgPath} alt={title} />
                 <CardContent>
                     <CardTitle height={height} ref={ref}>{title}</CardTitle>
@@ -61,13 +61,13 @@ const Card = ({id, poster_path, title, overview, onCloseMovie, currentCard, vote
                     </CardSummary>
                 <CardButtonsWrapper>
                     <CustomButton 
-                        className={desicion === 'Rejected' ? 'reject' : ''}
+                        className={decision === 'Rejected' ? 'reject' : ''}
                         text='NO'
                         onClick={()=> handleAnimation(CardStatus.Rejected)}
                     />
                     <Separator />
                     <CustomButton
-                        className={desicion === 'Accepted' ? 'accept' : ''}
+                        className={decision === 'Accepted' ? 'accept' : ''}
                         text='YES'
                         onClick={()=> handleAnimation(CardStatus.Accepted)}
                     />
