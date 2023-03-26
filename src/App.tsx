@@ -29,23 +29,25 @@ const App = () => {
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            <Layout>
-                {moviesArray.map((item: any, index: number) => {
-                    if (currentCard === index) {
-                        return (
-                            <Card
-                                key={item.id}
-                                {...item}
-                                currentCard={currentCard}
-                                onCloseMovie={handleChoseMovie}/>
-                        )
-                    } else {
-                        return null
-                    }
-                })}
-            </Layout>
-        </ThemeProvider>
+        <div data-testid="app">
+            <ThemeProvider theme={theme}>
+                <Layout>
+                    {moviesArray.map((item: any, index: number) => {
+                        if (currentCard === index) {
+                            return (
+                                <Card
+                                    key={item.id}
+                                    {...item}
+                                    currentCard={currentCard}
+                                    onCloseMovie={handleChoseMovie}/>
+                            )
+                        } else {
+                            return null
+                        }
+                    })}
+                </Layout>
+            </ThemeProvider>
+        </div>
     );
 }
 

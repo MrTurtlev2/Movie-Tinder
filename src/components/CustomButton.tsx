@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import {ButtonInterface} from '../types/customButtonInterface';
 
 const CustomButton = ({onClick, text, className}: ButtonInterface) => {
-  return (
-      <ButtonWrapper className={className} onClick={onClick}>{text}</ButtonWrapper>
-  )
+    return (
+        <ButtonWrapper data-testid="decision-button" className={className} onClick={onClick}>{text}</ButtonWrapper>
+    )
 }
 
 export default CustomButton
