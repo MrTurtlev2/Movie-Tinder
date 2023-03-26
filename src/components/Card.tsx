@@ -52,7 +52,7 @@ const Card = ({
     });
 
     return (
-        <CardMain currentCard={currentCard}>
+        <CardMain currentCard={currentCard} data-testid="animated-card">
             <CardBackground className={decision} imgPath={imgPath}/>
             <CardWrapper className={decision} {...handlers}>
                 <CardImage src={imgPath} alt={title}/>
