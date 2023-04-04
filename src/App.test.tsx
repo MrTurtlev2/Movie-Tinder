@@ -7,13 +7,18 @@ import axios from "axios";
 import MockAdapter from 'axios-mock-adapter';
 import CustomButton from "./components/CustomButton";
 import {CardStatus} from "./types/commonInterface";
+import {keyframes} from "styled-components";
+import {fadeIn} from "react-animations";
+import Card from "./components/Card";
+import {theme} from "./constants/theme";
+import StarIcon from "./assets/images/StarIcon.png";
 
 
 const mockObject = {
     id: '5',
     poster_path: 'http://dump',
     title: 'test title',
-    overview: '',
+    overview: 'test description',
     vote_average: 8.4,
     release_date: "2023-02-22",
     imageURL: 'sss',
@@ -35,30 +40,30 @@ describe("App component", () => {
     });
 });
 describe("Decision button", () => {
-    // it("makes text green when accepting movie", () => {
-    //     render(
-    //         <CustomButton text={'YES'}
-    //                       className={CardStatus.Accepted}
-    //                       onClick={() => null}
-    //         />
-    //     )
-    //
-    //     const buttonElement = screen.queryByTestId('decision-button');
-    //     expect(buttonElement).toHaveStyle({color: `${({theme}: any) => theme.colors.green}`})
-    //     expect(buttonElement).toHaveTextContent('YES');
-    // })
-    // it("makes text green when rejecting movie", () => {
-    //     render(
-    //         <CustomButton text={'NO'}
-    //                       className={CardStatus.Rejected}
-    //                       onClick={() => null}
-    //         />
-    //     )
-    //
-    //     const buttonElement = screen.queryByTestId('decision-button');
-    //     expect(buttonElement).toHaveStyle({color: `${({theme}: any) => theme.colors.red}`})
-    //     expect(buttonElement).toHaveTextContent('NO');
-    // })
+    it("makes text green when accepting movie", () => {
+        render(
+            <CustomButton text={'YES'}
+                          className={CardStatus.Accepted}
+                          onClick={() => null}
+            />
+        )
+
+        const buttonElement = screen.queryByTestId('decision-button');
+        expect(buttonElement).toHaveStyle({color: `${theme.colors.green}`})
+        expect(buttonElement).toHaveTextContent('YES');
+    })
+    it("makes text green when rejecting movie", () => {
+        render(
+            <CustomButton text={'NO'}
+                          className={CardStatus.Rejected}
+                          onClick={() => null}
+            />
+        )
+
+        const buttonElement = screen.queryByTestId('decision-button');
+        expect(buttonElement).toHaveStyle({color: `${theme.colors.red}`})
+        expect(buttonElement).toHaveTextContent('NO');
+    })
     it("sends post requests", () => {
         const mock = new MockAdapter(axios);
         render(
@@ -85,20 +90,40 @@ it('App fetches data from api', async () => {
     await waitFor(() => expect(store.getState().movies.movies.length).toBeGreaterThan(0))
 });
 
-// it('Card component should animate', () => {
-//
-//
-//     render(
-//         <Provider store={store}>
-//             <Card {...mockObject}/>
-//         </Provider>
-//     )
-//     const animatedCard = screen.queryByTestId('decision-button');
-//     const cardAppearAnimation = keyframes`${fadeIn}`;
-//
-//
-//     expect(animatedCard).toHaveStyle(`animation-name: ${cardAppearAnimation}`);
-//     expect(animatedCard).toHaveStyle('animation-duration: 2s');
-//     expect(animatedCard).toHaveStyle('animation-timing-function: forwards');
-// })
+it('Card component should animate', () => {
+
+
+    render(
+        <Provider store={store}>
+            <Card {...mockObject}/>
+        </Provider>
+    )
+    const animatedCard = screen.queryByTestId('decision-button');
+    const cardAppearAnimation = keyframes`${fadeIn}`;
+
+
+    expect(animatedCard).toHaveStyle(`animation-name: ${cardAppearAnimation}`);
+    expect(animatedCard).toHaveStyle('animation-duration: 2s');
+    expect(animatedCard).toHaveStyle('animation-timing-function: forwards');
+})
+
+it('Card should have movie description', () => {
+    render(
+        <Provider store={store}>
+            <Card {...mockObject}/>
+        </Provider>
+    )
+    const movieCardDescription = screen.queryByTestId('card-description');
+    expect(movieCardDescription?.textContent?.length).toBeGreaterThan(0)
+});
+it('Rating image should be in PNG extension', () => {
+    render(
+        <Provider store={store}>
+            <Card {...mockObject}/>
+        </Provider>
+    )
+    const extension = StarIcon.split('.').pop();
+    expect(extension).toBe('png');
+});
+
 

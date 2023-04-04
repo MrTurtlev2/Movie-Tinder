@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import StarIcon from "../assets/images/starIcon.png";
 import {RatingInterface} from "../types/ratingInterface";
+import {theme} from "../constants/theme";
 
 const Rating = ({rating}: RatingInterface) => {
 
@@ -30,15 +31,15 @@ const RatingWrapper = styled.div<{ height: number }>`
   position: absolute;
   top: ${p => p.height / 2 * -1}px;
   right: 20px;
-  border-radius: ${({theme}) => theme.radius.small};
+  border-radius: ${theme.radius.small};
   padding: 2px 7px;
-  background-color: ${({theme}) => theme.colors.blue};
+  background-color: ${theme.colors.blue};
 
   p {
     margin-left: 5px;
     font-weight: 700;
-    color: ${({theme}) => theme.colors.black};
-    font-size: ${({theme}) => theme.size.small};
+    color: ${theme.colors.black};
+    font-size: ${theme.size.small};
   }
 `;
 

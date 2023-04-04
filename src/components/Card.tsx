@@ -8,6 +8,7 @@ import {useAppDispatch} from '../app/hooks';
 import {choseMoviesAsync} from '../services/movieService';
 import {useSwipeable} from 'react-swipeable';
 import {CardStatus} from "../types/commonInterface";
+import {theme} from "../constants/theme";
 
 const Card = ({
                   id,
@@ -61,17 +62,17 @@ const Card = ({
                     <Rating rating={vote_average}/>
                     <CardSummary>
                         <p>{release_date.slice(0, 4)}</p>
-                        <p>{overview}</p>
+                        <p data-testid="card-description">{overview}</p>
                     </CardSummary>
                     <CardButtonsWrapper>
                         <CustomButton
-                            className={decision === CardStatus.Rejected ? 'reject' : ''}
+                            className={decision === CardStatus.Rejected ? CardStatus.Rejected : ''}
                             text='NO'
                             onClick={() => handleAnimation(CardStatus.Rejected)}
                         />
                         <Separator/>
                         <CustomButton
-                            className={decision === CardStatus.Accepted ? 'accept' : ''}
+                            className={decision === CardStatus.Accepted ? CardStatus.Accepted : ''}
                             text='YES'
                             onClick={() => handleAnimation(CardStatus.Accepted)}
                         />
@@ -151,20 +152,20 @@ const CardWrapper = styled.div`
 `;
 
 const CardContent = styled.div`
-  background-color: ${({theme}) => theme.colors.black};
-  color: ${({theme}) => theme.colors.white};
-  font-size: ${({theme}) => theme.size.vsmall};
+  background-color: ${theme.colors.black};
+  color: ${theme.colors.white};
+  font-size: ${theme.size.vsmall};
   text-align: left;
   margin-top: -5px;
   position: relative;
-  border-bottom-left-radius: ${({theme}) => theme.radius.small};
-  border-bottom-right-radius: ${({theme}) => theme.radius.small};
+  border-bottom-left-radius: ${theme.radius.small};
+  border-bottom-right-radius: ${theme.radius.small};
 `;
 
 const CardTitle = styled.p<{ height: number }>`
-  font-size: ${({theme}) => theme.size.large};
-  font-weight: ${({theme}) => theme.weight.bold};
-  color: ${({theme}) => theme.colors.blue};
+  font-size: ${theme.size.large};
+  font-weight: ${theme.weight.bold};
+  color: ${theme.colors.blue};
   position: absolute;
   top: ${p => (p.height - 4) * -1}px;
   left: 10px;
@@ -184,7 +185,7 @@ const CardSummary = styled.div`
   overflow: hidden;
   padding: 20px 15px 0 15px;
   margin-bottom: 15px;
-  font-size: ${({theme}) => theme.size.small};
+  font-size: ${theme.size.small};
 
   p {
     &:first-of-type {
@@ -202,12 +203,12 @@ const CardButtonsWrapper = styled.div`
   flex-direction: row;
   justify-content: space-around;
   padding: 10px;
-  border: 3px solid ${({theme}) => theme.colors.blue};
-  border-radius: ${({theme}) => theme.radius.small};
+  border: 3px solid ${theme.colors.blue};
+  border-radius: ${theme.radius.small};
 `;
 
 const Separator = styled.div`
   width: 2px;
-  background-color: ${({theme}) => theme.colors.blue};
-  border-radius: ${({theme}) => theme.radius.small};
+  background-color: ${theme.colors.blue};
+  border-radius: ${theme.radius.small};
 `;

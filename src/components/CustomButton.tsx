@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {ButtonInterface} from '../types/customButtonInterface';
+import {theme} from "../constants/theme";
 
 const CustomButton = ({onClick, text, className}: ButtonInterface) => {
     return (
@@ -10,15 +11,15 @@ const CustomButton = ({onClick, text, className}: ButtonInterface) => {
 export default CustomButton
 
 const ButtonWrapper = styled.div`
-  color: ${({theme}) => theme.colors.blue};
-  font-size: ${({theme}) => theme.size.large};
+  color: ${theme.colors.blue};
+  font-size: ${theme.size.large};
   cursor: pointer;
 
-  &.reject {
-    color: ${({theme}) => theme.colors.red};
+  &.Rejected {
+    color: ${theme.colors.red};
   }
 
-  &.accept {
-    color: ${({theme}) => theme.colors.green};
+  &.Accepted {
+    color: ${theme.colors.green};
   }
 `;

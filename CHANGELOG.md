@@ -6,9 +6,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 
 ## [Released] - 23.05.2022
 
-## [Last Update] - 27.03.2023
+## [Last Update] - 04.04.2023
 
-[//]: # (# [0.5.0] - 27.03.2023)
+# [0.5.1] - 04.04.2023
+
+## Added
+
+- Changelog update
+- Added tests:
+    - Checking if movie card displays description
+    - Checking rating image extension
+
+## Fixed
+
+- Colors and fonts global variables
+- Buttons style tests
+
+## Changed
+
+- Movie card class names
 
 # [0.5.0] - 27.03.2023
 
